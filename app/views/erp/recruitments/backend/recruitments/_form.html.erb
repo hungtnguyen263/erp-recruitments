@@ -1,0 +1,105 @@
+<%= form_for([erp_recruitments, :backend, recruitment], html: {multipart: true}) do |f| %>
+    <div class="form-body">
+        <div class="portlet light bordered">
+            <div class="portlet-body form">
+                <div class="row">
+                    <div class="col-md-6">
+                        <%= erp_form_control("text", {
+                            name: 'recruitment[name]',
+                            value: recruitment.name,
+                            label: t('.name'),
+                            placeholder: t('.enter_name'),
+                            required: true,
+                            errors: recruitment.errors.full_messages_for(:name)
+                        }) %>
+                        <%= erp_form_control("text", {
+                            name: 'recruitment[position]',
+                            value: recruitment.position,
+                            label: t('.position'),
+                            placeholder: t('.enter_position'),
+                            required: true,
+                            errors: recruitment.errors.full_messages_for(:position)
+                        }) %>
+                    </div>
+                    <div class="col-md-6">
+                        <%= erp_form_control('date', {
+                            label: t('.deadline'),
+                            name: 'recruitment[deadline]',
+                            value: recruitment.deadline,
+                            placeholder: t('.choose_deadline')
+                        }) %>
+                        <%= erp_form_control("text", {
+                            name: 'recruitment[salary_grade]',
+                            value: recruitment.salary_grade,
+                            label: t('.salary_grade'),
+                            placeholder: t('.enter_salary_grade'),
+                            required: true,
+                            errors: recruitment.errors.full_messages_for(:salary_grade)
+                        }) %>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-6 col-sm-6">
+                        <%= erp_form_control("textarea", {
+                            name: 'recruitment[meta_keywords]',
+                            value: recruitment.meta_keywords,
+                            placeholder: t('.placeholder_meta_keywords'),
+                            label: t('.meta_keywords')
+                        }) %>
+                    </div>
+                    <div class="col-md-6 col-sm-6">
+                        <%= erp_form_control("textarea", {
+                            name: 'recruitment[meta_description]',
+                            value: recruitment.meta_description,
+                            placeholder: t('.placeholder_meta_description'),
+                            label: t('.meta_description')
+                        }) %>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="portlet light bordered">
+            <div class="portlet-body form">
+                <h4><%= t('.task') %></h4>
+                <%= erp_form_control("editor", {
+                    name: 'recruitment[task]',
+                    value: recruitment.task,
+                    placeholder: t('.enter_task'),
+                    type: "tiny"
+                }) %>
+                
+                <h4><%= t('.require') %></h4>
+                <%= erp_form_control("editor", {
+                    name: 'recruitment[require]',
+                    value: recruitment.require,
+                    placeholder: t('.enter_require'),
+                    type: "tiny"
+                }) %>
+                
+                <h4><%= t('.interest') %></h4>
+                <%= erp_form_control("editor", {
+                    name: 'recruitment[interest]',
+                    value: recruitment.interest,
+                    placeholder: t('.enter_interest'),
+                    type: "tiny"
+                }) %>
+                
+                <h4><%= t('.description') %></h4>
+                <%= erp_form_control("textarea", {
+                    name: 'recruitment[description]',
+                    value: recruitment.description,
+                    placeholder: t('.placeholder_description')
+                }) %>
+            </div>
+        </div>
+    </div>
+    <%= erp_component('button/save', {
+        text: t('submit')
+    }) %>
+    <%= erp_component('button/cancel', {
+        text: t('cancel'),
+        href: erp_recruitments.backend_recruitments_path
+    }) %>
+<% end %>

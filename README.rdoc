@@ -1,0 +1,3 @@
+= Erp::Recruitments
+
+This project rocks and uses MIT-LICENSE.

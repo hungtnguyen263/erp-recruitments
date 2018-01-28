@@ -1,0 +1,115 @@
+<table class="table table-advance table-hover table-striped table-checkable order-column">
+    <thead>
+        <tr>
+            <th width='1%'>
+                <%= erp_datalist_check_all %>
+            </th>
+            <% if get_columns(params).include?("name") %>
+                <th>
+                    <%= t('.name') %>
+                </th>
+            <% end %>
+            <% if get_columns(params).include?("deadline") %>
+                <th class="sortable" sort-by='erp_recruitments_recruitments.deadline'>
+                    <%= t('.deadline') %>
+                </th>
+            <% end %>
+            <% if get_columns(params).include?("position") %>
+                <th>
+                    <%= t('.position') %>
+                </th>
+            <% end %>
+            <% if get_columns(params).include?("status") %>
+                <th>
+                    <%= t('status') %>
+                </th>
+            <% end %>
+            <% if get_columns(params).include?("creator") %>
+                <th>
+                    <%= t('creator') %>
+                </th>
+            <% end %>
+            <% if get_columns(params).include?("created_at") %>
+                <th class="sortable" sort-by='erp_recruitments_recruitments.created_at'>
+                    <%= t('created_at') %>
+                </th>
+            <% end %>
+            <th width="7%"><%= t('actions') %></th>
+        </tr>
+    </thead>
+    <tbody>
+        <% @recruitments.each do |recruitment| %>
+            <tr class="odd gradeX <%= 'blurred' if recruitment.is_deleted? %> has-child-table" data-url="">
+                <td>
+                    <%= erp_datalist_check_row(id: recruitment.id) %>
+                </td>
+                <% if get_columns(params).include?("name") %>
+                <td>
+                    <i class="fa fa-plus expand tr-expand-button"></i>
+                    <%= recruitment.name %>
+                </td>
+                <% end %>
+                <% if get_columns(params).include?("deadline") %>
+                    <td><%= recruitment.deadline.strftime("%d/%m/%Y") %></td>
+                <% end %>
+                <% if get_columns(params).include?("position") %>
+                <td><%= recruitment.position %></td>
+                <% end %>
+                <% if get_columns(params).include?("status") %>
+                    <td>
+                        <%= status_label(recruitment.status) %>
+                    </td>
+                <% end %>
+                <% if get_columns(params).include?("creator") %>
+                    <td>
+                        <%= erp_component('avatar', {
+                            user: recruitment.creator
+                        }) %>
+                    </td>
+                <% end %>
+                <% if get_columns(params).include?("created_at") %>
+                    <td><%= recruitment.created_at.strftime("%d/%m/%Y") %></td>
+                <% end %>
+                <td>
+                    <%= erp_datalist_row_actions(
+                        [
+                            {
+                                text: '<i class="fa fa-edit"></i> Chỉnh sửa',
+                                url: erp_recruitments.edit_backend_recruitment_path(recruitment)
+                            },
+                            {
+                                text: '<i class="fa fa-check"></i> '+t('.set_active'),
+                                url: erp_recruitments.set_active_backend_recruitments_path(id: recruitment),
+                                data_method: 'PUT',
+                                hide: recruitment.is_active?,
+                                class: 'ajax-link',
+                                data_confirm: t('.set_active_confirm')
+                            },
+                            { divider: true },
+                            {
+                                text: '<i class="fa fa-ban"></i> '+t('.set_deleted'),
+                                url: erp_recruitments.set_deleted_backend_recruitments_path(id: recruitment),
+                                data_method: 'PUT',
+                                hide: recruitment.is_deleted?,
+                                class: 'ajax-link',
+                                data_confirm: t('.set_deleted_confirm')
+                            },
+                            {
+                              text: '<i class="fa fa-trash"></i> '+t('.destroy'),
+                              url: erp_recruitments.backend_recruitment_path(recruitment),
+                              data_method: 'DELETE',
+                              data_confirm: t('delete_confirm'),
+                              class: 'ajax-link'
+                            }
+                        ]
+                    ) %>
+                </td>
+            </tr>
+        <% end %>
+    </tbody>
+</table>
+<% if @recruitments.empty? %>
+    <div class="datalist-empty-line"><%= t('.no_matching_records_found') %></div>
+<% end %>
+
+<%= erp_datalist_pagination(@recruitments) %>

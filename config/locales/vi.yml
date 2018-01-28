@@ -1,0 +1,63 @@
+vi:
+  erp:
+    recruitments:
+      backend:
+        recruitments:
+          create:
+            success: "Thêm mới thành công."
+          update:
+            success: "Cập nhật thành công."
+          set_active:
+            success: "Kích hoạt thành công."
+          set_deleted:
+            success: "Hủy thành công."
+          destroy:
+            success: "Xóa thành công. Bạn không thể khôi phục nội dung đã xóa."
+          index:
+            recruitments: "Tuyển dụng"
+            create: "Thêm tin"
+            active: "Đang kích hoạt"
+            deleted: "Đã bị hủy"
+            name: "Tiêu đề"
+            deadline: "Hạn nộp hồ sơ"
+            position: "Vị trí"
+          list:
+            name: "Tiêu đề"
+            deadline: "Hạn nộp"
+            position: "Vị trí"
+            active: "Kích hoạt"
+            deleted: "Đã hủy"
+            set_active: "Kích hoạt"
+            set_active_confirm: "Bạn có muốn kích hoạt bài tuyển dụng này?"
+            set_deleted: "Hủy bỏ"
+            set_deleted_confirm: "Bạn chắc chắn muốn hủy bài tuyển dụng này?"
+            destroy: "Xóa tin"
+            no_matching_records_found: "Không tìm thấy kết quả."
+          new:
+            recruitments: "Tuyển dụng"
+            create: "Thêm tin"
+          edit:
+            recruitments: "Tuyển dụng"
+            edit: "Chỉnh sửa"
+            create: "Thêm tin"
+          form:
+            name: "Tiêu đề tuyển dụng"
+            enter_name: "Nhập tiêu đề"
+            deadline: "Hạn nộp hồ sơ"
+            choose_deadline: "Chọn thời gian kết thúc nhận hồ sơ"
+            position: "Vị trí tuyển dụng"
+            enter_position: "Vị trí: Kế toán kho, Thu ngân, Nhân viên,..."
+            salary_grade: "Mức lương"
+            enter_salary_grade: "VD: 5-10 triệu hoặc thỏa thuận"
+            meta_keywords: "Từ khóa SEO"
+            placeholder_meta_keywords: "Các từ khóa sử dụng để SEO"
+            meta_description: "Mô tả SEO"
+            placeholder_meta_description: "Nội dung mô tả sử dụng để SEO"
+            task: "Mô tả công việc"
+            enter_task: "Nội dung mô tả công việc phải làm"
+            require: "Yêu cầu công việc"
+            enter_require: "Nội dung yêu cầu của công việc (Trình độ, điều kiện, ...)"
+            interest: "Quyền lợi làm việc"
+            enter_interest: "Nội dung quyền lợi của nhân viên khi làm việc tại doanh nghiệp"
+            description: "Mô tả chung / Mô tả khác"
+            placeholder_description: "Nhập nội dung mô tả chung / hoặc mô tả khác"
