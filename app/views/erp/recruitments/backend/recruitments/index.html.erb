@@ -6,11 +6,13 @@
     <i class="icon-users"></i> <%= t('.recruitments') %>
 <% end %>
 
-<% content_for :page_toolbar do %>
-    <%= erp_component('button/create', {
-        text: t('.create'),
-        href: erp_recruitments.new_backend_recruitment_path
-    }) %>
+<% if can? :create, Erp::Recruitments::Recruitment %>
+    <% content_for :page_toolbar do %>
+        <%= erp_component('button/create', {
+            text: t('.create'),
+            href: erp_recruitments.new_backend_recruitment_path
+        }) %>
+    <% end %>
 <% end %>
 
 <%= erp_datalist(

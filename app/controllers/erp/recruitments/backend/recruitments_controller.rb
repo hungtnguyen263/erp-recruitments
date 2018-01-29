@@ -4,9 +4,14 @@ module Erp
       class RecruitmentsController < Erp::Backend::BackendController
         before_action :set_recruitment, only: [:show, :edit, :update, :destroy,
                                                :set_active, :set_deleted]
+        
+        def index
+          authorize! :view, Erp::Recruitments::Recruitment
+        end
     
         # GET /recruitments
         def list
+          authorize! :view, Erp::Recruitments::Recruitment
           @recruitments = Recruitment.search(params).paginate(:page => params[:page], :per_page => 10)
           
           render layout: nil
@@ -19,7 +24,7 @@ module Erp
         # GET /recruitments/new
         def new
           @recruitment = Recruitment.new
-          
+          authorize! :create, @recruitment
           if request.xhr?
             render '_form', layout: nil, locals: {recruitment: @recruitment}
           end
@@ -27,11 +32,14 @@ module Erp
     
         # GET /recruitments/1/edit
         def edit
+          authorize! :edit, @recruitment
         end
     
         # POST /recruitments
         def create
           @recruitment = Recruitment.new(recruitment_params)
+          authorize! :create, @recruitment
+          
           @recruitment.creator = current_user
           @recruitment.status = Erp::Recruitments::Recruitment::STATUS_ACTIVE
     
@@ -56,6 +64,8 @@ module Erp
     
         # PATCH/PUT /recruitments/1
         def update
+          authorize! :edit, @recruitment
+          
           @recruitment.status = Erp::Recruitments::Recruitment::STATUS_ACTIVE
           if @recruitment.update(recruitment_params)
             if request.xhr?
@@ -74,6 +84,8 @@ module Erp
     
         # DELETE /recruitments/1
         def destroy
+          authorize! :delete, @recruitment
+          
           @recruitment.destroy
           
           respond_to do |format|

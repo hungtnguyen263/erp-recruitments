@@ -45,7 +45,6 @@
                 </td>
                 <% if get_columns(params).include?("name") %>
                 <td>
-                    <i class="fa fa-plus expand tr-expand-button"></i>
                     <%= recruitment.name %>
                 </td>
                 <% end %>
@@ -71,43 +70,43 @@
                     <td><%= recruitment.created_at.strftime("%d/%m/%Y") %></td>
                 <% end %>
                 <td>
-                    <%= erp_datalist_row_actions(
-                        [
-                            {
+                    <%
+                        actions = []
+                        actions << {
                                 text: '<i class="fa fa-edit"></i> Chỉnh sửa',
                                 url: erp_recruitments.edit_backend_recruitment_path(recruitment)
-                            },
-                            {
+                            } if can? :edit, recruitment
+                        actions << {
                                 text: '<i class="fa fa-check"></i> '+t('.set_active'),
                                 url: erp_recruitments.set_active_backend_recruitments_path(id: recruitment),
                                 data_method: 'PUT',
                                 hide: recruitment.is_active?,
                                 class: 'ajax-link',
                                 data_confirm: t('.set_active_confirm')
-                            },
-                            { divider: true },
-                            {
+                            } if can? :edit, recruitment
+                        actions << {
                                 text: '<i class="fa fa-ban"></i> '+t('.set_deleted'),
                                 url: erp_recruitments.set_deleted_backend_recruitments_path(id: recruitment),
                                 data_method: 'PUT',
                                 hide: recruitment.is_deleted?,
                                 class: 'ajax-link',
                                 data_confirm: t('.set_deleted_confirm')
-                            },
-                            {
+                            } if can? :edit, recruitment
+                        actions << {
                               text: '<i class="fa fa-trash"></i> '+t('.destroy'),
                               url: erp_recruitments.backend_recruitment_path(recruitment),
                               data_method: 'DELETE',
                               data_confirm: t('delete_confirm'),
                               class: 'ajax-link'
-                            }
-                        ]
-                    ) %>
+                            } if can? :delete, recruitment
+                    %>                    
+                    <%= erp_datalist_row_actions(actions) %>
                 </td>
             </tr>
         <% end %>
     </tbody>
 </table>
+
 <% if @recruitments.empty? %>
     <div class="datalist-empty-line"><%= t('.no_matching_records_found') %></div>
 <% end %>
